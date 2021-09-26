@@ -7,28 +7,31 @@ from google.oauth2.credentials import Credentials
 import discord
 import datetime
 
-CREDENTIALS = {
-    "installed":
-    {
-        "client_id":os.environ['CLIENT_ID'],
-        "project_id":os.environ['PROJECT_ID'],
-        "auth_uri":os.environ['AUTH_URI'],
-        "token_uri":os.environ['TOKEN_URI'],
-        "auth_provider_x509_cert_url":os.environ['AUTH_PROVIDER_X509_CERT_URL'],
-        "client_secret":os.environ['CLIENT_SECRET'],
-        "redirect_uris":[os.environ['REDIRECT_URIS'],"http://localhost"]
-    }
-}
+# CREDENTIALS = {
+#     "installed":
+#     {
+#         "client_id":os.environ['CLIENT_ID'],
+#         "project_id":os.environ['PROJECT_ID'],
+#         "auth_uri":os.environ['AUTH_URI'],
+#         "token_uri":os.environ['TOKEN_URI'],
+#         "auth_provider_x509_cert_url":os.environ['AUTH_PROVIDER_X509_CERT_URL'],
+#         "client_secret":os.environ['CLIENT_SECRET'],
+#         "redirect_uris":[os.environ['REDIRECT_URIS'],"http://localhost"]
+#     }
+# }
 
-TOKEN = {
-    "token": os.environ['TOEKN'],
-    "refresh_token": os.environ['REFRESH_TOKEN'], 
-    "token_uri": os.environ['TOKEN_URI'], 
-    "client_id": os.environ['CLIENT_ID'], 
-    "client_secret": os.environ['CLIENT_SECRET'],
-    "scopes": ["https://www.googleapis.com/auth/gmail.readonly", "https://www.googleapis.com/auth/calendar.readonly"], 
-    "expiry": os.environ['EXPIRY']
-}
+# TOKEN = {
+#     "token": os.environ['TOEKN'],
+#     "refresh_token": os.environ['REFRESH_TOKEN'], 
+#     "token_uri": os.environ['TOKEN_URI'], 
+#     "client_id": os.environ['CLIENT_ID'], 
+#     "client_secret": os.environ['CLIENT_SECRET'],
+#     "scopes": ["https://www.googleapis.com/auth/gmail.readonly", "https://www.googleapis.com/auth/calendar.readonly"], 
+#     "expiry": os.environ['EXPIRY']
+# }
+
+CREDENTIALS = os.environ['CREDENTIALS']
+TOKEN = os.environ['TOKEN_GOOGLE']
 
 DISCORD_TOKEN = os.environ['DISCORD_TOKEN']
 SCOPES = ['https://www.googleapis.com/auth/gmail.readonly',
