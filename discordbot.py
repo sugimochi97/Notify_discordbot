@@ -32,6 +32,8 @@ import datetime
 
 CREDENTIALS = os.environ['CREDENTIALS']
 TOKEN = os.environ['TOKEN_GOOGLE']
+print(CREDENTIALS)
+print(TOKEN)
 
 DISCORD_TOKEN = os.environ['DISCORD_TOKEN']
 SCOPES = ['https://www.googleapis.com/auth/gmail.readonly',
