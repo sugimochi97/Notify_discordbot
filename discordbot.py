@@ -16,7 +16,7 @@ CREDENTIALS = {
         "token_uri":os.environ['TOKEN_URI'],
         "auth_provider_x509_cert_url":os.environ['AUTH_PROVIDER_X509_CERT_URL'],
         "client_secret":os.environ['CLIENT_SECRET'],
-        "redirect_uris":[os.environ,"http://localhost"]
+        "redirect_uris":[os.environ['REDIRECT_URIS'],"http://localhost"]
     }
 }
 
