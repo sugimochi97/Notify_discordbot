@@ -102,3 +102,9 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+credential_google.json
+credentials.json
+discord_token.json
+token_google.json
+token.json
