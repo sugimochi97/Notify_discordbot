@@ -53,9 +53,9 @@ class NotifyClalendarClient(discord.Client):
         creds = None
         self.max_result = max_result
         self.user_Id = 'me'
-        creds = Credentials(token=token['token'], refresh_token=token['refresh_token'], token_uri=token['token_uri'],
-                            client_id=token['client_id'], client_secret=token['client_secret'], scopes=scopes,
-                            expiry=token['expiry'])
+        # creds = Credentials(token=token['token'], refresh_token=token['refresh_token'], token_uri=token['token_uri'],
+        #                     client_id=token['client_id'], client_secret=token['client_secret'], scopes=scopes,
+        #                     expiry=token['expiry'])
         if os.path.exists('./token_google.json'):
                 creds = Credentials.from_authorized_user_file('./token_google.json', scopes)
         if not creds or not creds.valid:
