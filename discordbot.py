@@ -1,11 +1,14 @@
 from discord.ext import tasks
 import os
+import json
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 import discord
 import datetime
+
+# DISCORD_TOKEN = json.load(open('discord_token.json'))['token']
 
 # CREDENTIALS = {
 #     "installed":
@@ -32,8 +35,6 @@ import datetime
 
 CREDENTIALS = os.environ['CREDENTIALS']
 TOKEN = os.environ['TOKEN_GOOGLE']
-print(CREDENTIALS)
-print(TOKEN)
 
 DISCORD_TOKEN = os.environ['DISCORD_TOKEN']
 SCOPES = ['https://www.googleapis.com/auth/gmail.readonly',
@@ -42,6 +43,7 @@ MAX_RESULT = 100
 
 class NotifyClalendarClient(discord.Client):
     def __init__(self, discord_token=DISCORD_TOKEN, scopes=SCOPES, max_result=MAX_RESULT, credentials=CREDENTIALS, token=TOKEN):
+    # def __init__(self, discord_token=DISCORD_TOKEN, scopes=SCOPES, max_result=MAX_RESULT):
         super().__init__()
         self.discord_token = discord_token
         with open('./token_google.json', 'w') as f:
@@ -51,6 +53,9 @@ class NotifyClalendarClient(discord.Client):
         creds = None
         self.max_result = max_result
         self.user_Id = 'me'
+        creds = Credentials(token=token['token'], refresh_token=token['refresh_token'], token_uri=token['token_uri'],
+                            client_id=token['client_id'], client_secret=token['client_secret'], scopes=scopes,
+                            expiry=token['expiry'])
         if os.path.exists('./token_google.json'):
                 creds = Credentials.from_authorized_user_file('./token_google.json', scopes)
         if not creds or not creds.valid:
@@ -71,7 +76,7 @@ class NotifyClalendarClient(discord.Client):
         self.get_unread_mail.start()
         for channel in self.get_all_channels():
             if str(channel.category) == 'テキストチャンネル' and channel.name == '一般':
-                await channel.send('起動しました')
+                await print('起動しました')
 
     async def on_message(self, message):
         if message.author == self.user:
