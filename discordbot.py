@@ -92,13 +92,17 @@ class NotifyClalendarClient(discord.Client):
 
     def get_tomorrow_schedule(self):
         now = datetime.datetime.utcnow().isoformat() + 'Z'
-        result = '明日の予定は、'
         events_result = self.service_calendar.events().list(
             calendarId='primary', timeMin=now, maxResults=self.max_result, 
             singleEvents=True, orderBy='startTime'
         ).execute()
-        events = [i['summary'] for i in events_result['items']]
-        result += 'と、'.join(events)
+        result = ''
+        if events_result != []:
+            result += '明日の予定は、'
+            events = [i['summary'] for i in events_result['items']]
+            result += 'と、'.join(events)
+        else:
+            result += '明日の予定はありません'
         return result
 
     @tasks.loop(hours=24)
