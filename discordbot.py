@@ -98,12 +98,12 @@ class NotifyClalendarClient(discord.Client):
             singleEvents=True, orderBy='startTime'
         ).execute()
         result = ''
-        if events_result != []:
+        if not events_result:
+            result += '明日の予定はありません'
+        else:
             result += '明日の予定は、'
             events = [i['summary'] for i in events_result['items']]
             result += 'と、'.join(events)
-        else:
-            result += '明日の予定はありません'
         return result
 
     @tasks.loop(hours=24)
