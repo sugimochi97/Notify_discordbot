@@ -93,7 +93,7 @@ class NotifyClalendarClient(discord.Client):
     def get_tomorrow_schedule(self):
         now = datetime.datetime.utcnow().isoformat() + 'Z'
         events_result = self.service_calendar.events().list(
-            calendarId='primary', timeMin=now, maxResults=self.max_result, 
+            calendarId='primary', timeMin=now, timeMax=now, maxResults=self.max_result, 
             singleEvents=True, orderBy='startTime'
         ).execute()
         result = ''
