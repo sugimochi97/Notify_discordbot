@@ -98,7 +98,8 @@ class NotifyClalendarClient(discord.Client):
             singleEvents=True, orderBy='startTime'
         ).execute()
         result = ''
-        if not events_result:
+        events = events_result.get('items', [])
+        if not events:
             result += '明日の予定はありません'
         else:
             result += '明日の予定は、'
