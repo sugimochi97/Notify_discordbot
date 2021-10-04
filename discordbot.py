@@ -114,7 +114,10 @@ class NotifyClalendarClient(discord.Client):
     @tasks.loop(hours=24)
     async def send_tomorrow_schedule(self):
         result = self.get_tomorrow_schedule()
-        await self.channel.send(result)
+        if result == '明日の予定はありません':
+            await print('Nothing schedule.')
+        else:
+            await self.channel.send(result)
 
 
     @tasks.loop(hours=24)
