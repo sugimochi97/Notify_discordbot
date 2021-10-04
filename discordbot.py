@@ -78,7 +78,7 @@ class NotifyClalendarClient(discord.Client):
             if str(channel.category) == 'テキストチャンネル' and channel.name == '一般':
                 self.channel = channel
         self.get_unread_mail.start()
-        self.send_tomorrow_schedule().start()
+        self.send_tomorrow_schedule.start()
         for channel in self.get_all_channels():
             if str(channel.category) == 'テキストチャンネル' and channel.name == '一般':
                 await print('起動しました')
