@@ -118,6 +118,7 @@ class NotifyClalendarClient(discord.Client):
         if result == '明日の予定はありません':
             await print('Nothing schedule.')
         else:
+            result = '@everyone\n'+result
             await self.channel.send(result)
 
 
