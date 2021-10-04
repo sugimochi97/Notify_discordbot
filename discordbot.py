@@ -74,6 +74,10 @@ class NotifyClalendarClient(discord.Client):
 
     async def on_ready(self):
         self.get_unread_mail.start()
+        self.channel = None
+        for channel in self.get_all_channels():
+            if str(channel.category) == 'テキストチャンネル' and channel.name == '一般':
+                self.channel = channel
         for channel in self.get_all_channels():
             if str(channel.category) == 'テキストチャンネル' and channel.name == '一般':
                 await print('起動しました')
@@ -108,13 +112,15 @@ class NotifyClalendarClient(discord.Client):
         return result
 
     @tasks.loop(hours=24)
+    async def send_tomorrow_schedule(self):
+        result = self.get_tomorrow_schedule()
+        await self.channel.send(result)
+
+
+    @tasks.loop(hours=24)
     async def get_unread_mail(self):
         messages = self.service_gmail.users().messages().list(userId=self.user_Id).execute()
         result = []
-        channel = None
-        for c in self.get_all_channels():
-            if str(c.category) == 'テキストチャンネル' and c.name == '一般':
-                channel = c
         for i, message in enumerate(messages['messages'][:10]):
             result_message = self.service_gmail.users().messages().get(userId=self.user_Id,id=message['id']).execute()
             labels = result_message['labelIds']
@@ -125,9 +131,9 @@ class NotifyClalendarClient(discord.Client):
         if result != []:
             result.insert(0, '@everyone\n以下、未読メールです。\nhttps://mail.google.com/mail/u/1/?ogbl#inbox\n')
             result.insert(1, f'{"="*50}\n')
-            await channel.send(f"".join(result))
+            await self.channel.send(f"".join(result))
         else:
-            await channel.send('新着メールはありません')
+            await self.channel.send('新着メールはありません')
 
     def run_bot(self):
         self.run(self.discord_token)
