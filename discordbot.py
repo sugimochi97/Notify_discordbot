@@ -74,6 +74,7 @@ class NotifyClalendarClient(discord.Client):
 
     async def on_ready(self):
         self.get_unread_mail.start()
+        self.send_tomorrow_schedule().start()
         self.channel = None
         for channel in self.get_all_channels():
             if str(channel.category) == 'テキストチャンネル' and channel.name == '一般':
